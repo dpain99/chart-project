@@ -1,0 +1,156 @@
+.chart1-container {
+    background-color: #FFF8E7;
+    padding: 20px;
+}
+
+.chart1-container.kim {
+    background-color: #FFF8E7;
+}
+
+.chart1-container.moc {
+    background-color: #F7FBFF;
+}
+
+.chart1-container.thuy {
+    background-color: #F7FBFF;
+}
+
+.chart1-container.hoa {
+    background-color: #FFF3F7;
+}
+
+.chart1-container.tho {
+    background-color: #FFF8E7;
+}
+
+.title-chart {
+    font-size: 60px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #381C15;
+    display: flex;
+    justify-content: start;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.label {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 600;
+    color: #381C15;
+    display: flex;
+
+}
+
+.label:first-child {
+    justify-content: flex-start;
+    text-align: start;
+}
+
+.label:last-child {
+    justify-content: end;
+    text-align: end;
+}
+
+.chart1 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.chart-single {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.description-chart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-detail {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.chart:first-child {
+    width: 50%;
+    height: 100%;
+    min-height: 20px;
+    background-color: #EF9E00;
+    border-right: 1px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.chart:first-child.kim {
+    background-color: #EF9E00;
+}
+
+.chart:first-child.moc {
+    background-color: #078E96;
+}
+
+.chart:first-child.thuy {
+    background-color: #1B69BF;
+}
+
+.chart:first-child.hoa {
+    background-color: #D62F6E;
+}
+
+.chart:first-child.tho {
+    background-color: #C44023;
+}
+
+.chart:last-child {
+    width: 50%;
+    height: 100%;
+    min-height: 20px;
+    background-color: #F0E1BC;
+    border-right: 1px;
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.chart:last-child.kim {
+    background-color: #F0E1BC;
+}
+
+.chart:last-child.moc {
+    background-color: #D5EAE2;
+}
+
+.chart:last-child.thuy {
+    background-color: #D9E5EB;
+}
+
+.chart:last-child.hoa {
+    background-color: #FFDBE8;
+}
+
+.chart:last-child.tho {
+    background-color: #FFE6CF;
+}
+
+/* Mobile (di động) */
+@media (max-width: 767px) {
+    .title-chart {
+        font-size: 28px;
+    }
+
+    .label {
+        font-size: 10px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .title-chart {
+        font-size: 50px;
+    }
+
+    .label {
+        font-size: 13px;
+    }
+}
