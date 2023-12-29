@@ -1,46 +1,151 @@
-# Getting Started with Create React App
+# Hướng dẫn sử dụng
+## Chart
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Đây là hướng dẫn sử dụng cho các chart.
 
-## Available Scripts
+- Chart1: Biểu đồ cột
+- Char3: Biểu đồ radar
+- Char5: Biểu đồ tròn
 
-In the project directory, you can run:
+## Chart1 - Biểu đồ cột
 
-### `npm start`
+| Props | Chi tiết | Kiểu dữ liệu |
+| ------ | ------ | ----- |
+| title | tên của biểu đồ | string
+| type | kiểu của biểu đồ, để thay đổi màu sắc | 'kim', 'moc', 'thuy', 'hoa', 'tho' |
+| detail | định nghĩa label và giá trị đi kèm label.Tổng giá trị của 2 value trong 1 object là 100. Ví dụ : value1: 40, value2: 60 |array, phần tử là các object với các cặp {label1: string, value1: number, label2: string, value2: number}, với label1 - value1 là cọc đồ thị bên trái, label2 - value2 là cọc đồ thị bên phải |
+- Ví dụ:
+```sh
+  <Chart1
+          title={"Tính cách khuynh hướng"}
+          detail={[
+            {
+              label1: "Thực tế / Không thích mạo hiểm",
+              value1: 30,
+              label2: "Phiêu lưu / Tinh thần mạo hiểm",
+              value2: 70,
+            },
+            {
+              label1: "Tuân theo tự nhiên",
+              value1: 40,
+              label2: "Kế hoạch / Tự chủ",
+              value2: 60,
+            },
+            {
+              label1: "Hướng ngoại / Dễ gần",
+              value1: 48,
+              label2: "Hướng nội / Không thích chú ý",
+              value2: 52,
+            },
+            {
+              label1: "Tư duy nhóm",
+              value1: 35,
+              label2: "Tư duy độc lập",
+              value2: 65,
+            },
+            {
+              label1: "Dễ đồng cảm",
+              value1: 70,
+              label2: "Thích thao túng",
+              value2: 30,
+            },
+            {
+              label1: "Nhạy cảm / Hay suy nghĩ",
+              value1: 36,
+              label2: "Giỏi xử lý căng thẳng",
+              value2: 64,
+            },
+          ]}
+          type="moc"
+        />
+```
+- Kết quả:
+![chart1](https://scontent.fvii1-1.fna.fbcdn.net/v/t39.30808-6/414986757_1391836301755998_1060101709197655160_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=3635dc&_nc_ohc=jS4zlmG9xx4AX_ONOdN&_nc_ht=scontent.fvii1-1.fna&oh=00_AfAlEPtVz8-WS_kSctUKQ0399_2i0TSq6TAcB82rufq-4Q&oe=65936230)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## Char3 - Biểu đồ radar
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Props | Chi tiết | Kiểu dữ liệu |
+| ------ | ------ | ----- |
+| data | dữ liệu của biểu đồ. Điểm bắt đầu của biểu đồ là từ đỉnh bên tay phải, chạy theo hướng kim đồng hồ. Giá trị value chạy từ 1-> 6 tương ứng với 6 vòng. | array, phần tử là các cặp object kiểu {label: string, value: string}
+| type | kiểu của biểu đồ, để thay đổi màu sắc | 'kim', 'moc', 'thuy', 'hoa', 'tho' |
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Ví dụ:
+```sh
+   <Chart3
+          data={[
+            {
+              label: "Nhóm truyền thông",
+              value: 6,
+            },
+            {
+              label: "Nhóm giáo dục",
+              value: 6,
+            },
+            {
+              label: "Nhóm kinh doanh",
+              value: 4,
+            },
+            {
+              label: "Nhóm nghệ thuật",
+              value: 4,
+            },
+            {
+              label: "Nhóm luật pháp",
+              value: 5,
+            },
+            {
+              label: "Nhóm dịch vụ",
+              value: 6,
+            },
+            {
+              label: "Nhóm khoa học kỹ thuật",
+              value: 5,
+            },
+            { label: "Nhóm y tế", value: 5 },
+          ]}
+          type={"tho"}
+        />
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Kết quả: 
+![chart3](https://scontent.fvii1-1.fna.fbcdn.net/v/t39.30808-6/415028314_1391839105089051_8475325630028989499_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=3635dc&_nc_ohc=AMBmWM0IOkUAX9WEWw8&_nc_ht=scontent.fvii1-1.fna&oh=00_AfBH7_SU2vcm1Ke1f2t6U06B1Zi3hEasAmd4HhDRN3lkqQ&oe=6593ACE8)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Char5 - Biểu đồ tròn
+| Props | Chi tiết | Kiểu dữ liệu |
+| ------ | ------ | ----- |
+| data | dữ liệu của biểu đồ. Gồm tên biểu đồ, nhãn biểu đồ, mô tả cho nhãn (nếu có), và giá trị đường tròn. Max giá trị là 100 | array, phần tử là các cặp object kiểu {label: string, value: string}
+| type | kiểu của biểu đồ, để thay đổi màu sắc | 'kim', 'moc', 'thuy', 'hoa', 'tho' |
 
-### `npm run eject`
+- Ví dụ:
+```sh
+ <Chart5
+        data={[
+          {
+            title: "Thiên thời",
+            label: "Sinh xuất",
+            description: "Không tốt",
+            value: 30,
+          },
+          {
+            title: "Địa lợi",
+            label: "Đồng hành",
+            description: "Rất tốt",
+            value: 100,
+          },
+          {
+            title: "Tổng quan",
+            label: "Bình ổn",
+            value: 59,
+          },
+        ]}
+        type={"hoa"}
+      />
+```
+- Kết quả:
+![chart3](https://scontent.fvii1-1.fna.fbcdn.net/v/t39.30808-6/414669693_1391840091755619_4155773155336742427_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=3635dc&_nc_ohc=HqwCPUGJLH4AX-JC8Hc&_nc_ht=scontent.fvii1-1.fna&oh=00_AfABjMqaFNE7ZAfkFZobS8UeqkYpn7973OupCsxgdwVH8g&oe=65941DE0)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Good Luck!**
