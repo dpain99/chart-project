@@ -10,47 +10,47 @@ function App() {
     <div className="App">
       <div>
         {/* <Chart1
-            title={"Tính cách khuynh hướng"}
-            detail={[
-              {
-                label1: "Thực tế / Không thích mạo hiểm",
-                value1: 30,
-                label2: "Phiêu lưu / Tinh thần mạo hiểm",
-                value2: 70,
-              },
-              {
-                label1: "Tuân theo tự nhiên",
-                value1: 40,
-                label2: "Kế hoạch / Tự chủ",
-                value2: 60,
-              },
-              {
-                label1: "Hướng ngoại / Dễ gần",
-                value1: 48,
-                label2: "Hướng nội / Không thích chú ý",
-                value2: 52,
-              },
-              {
-                label1: "Tư duy nhóm",
-                value1: 35,
-                label2: "Tư duy độc lập",
-                value2: 65,
-              },
-              {
-                label1: "Dễ đồng cảm",
-                value1: 70,
-                label2: "Thích thao túng",
-                value2: 30,
-              },
-              {
-                label1: "Nhạy cảm / Hay suy nghĩ",
-                value1: 36,
-                label2: "Giỏi xử lý căng thẳng",
-                value2: 64,
-              },
-            ]}
-            type="thuy"
-          /> */}
+          title={"Tính cách khuynh hướng"}
+          detail={[
+            {
+              label1: "Thực tế / Không thích mạo hiểm",
+              value1: 30,
+              label2: "Phiêu lưu / Tinh thần mạo hiểm",
+              value2: 70,
+            },
+            {
+              label1: "Tuân theo tự nhiên",
+              value1: 40,
+              label2: "Kế hoạch / Tự chủ",
+              value2: 60,
+            },
+            {
+              label1: "Hướng ngoại / Dễ gần",
+              value1: 48,
+              label2: "Hướng nội / Không thích chú ý",
+              value2: 52,
+            },
+            {
+              label1: "Tư duy nhóm",
+              value1: 35,
+              label2: "Tư duy độc lập",
+              value2: 65,
+            },
+            {
+              label1: "Dễ đồng cảm",
+              value1: 70,
+              label2: "Thích thao túng",
+              value2: 30,
+            },
+            {
+              label1: "Nhạy cảm / Hay suy nghĩ",
+              value1: 36,
+              label2: "Giỏi xử lý căng thẳng",
+              value2: 64,
+            },
+          ]}
+          type="moc"
+        /> */}
         {/* <Chart5
           data={[
             {
@@ -71,10 +71,43 @@ function App() {
               value: 59,
             },
           ]}
-          type={"tho"}
+          type={"hoa"}
         /> */}
 
-        <Chart3 />
+        <Chart3
+          data={[
+            {
+              label: "Nhóm truyền thông",
+              value: 6,
+            },
+            {
+              label: "Nhóm giáo dục",
+              value: 6,
+            },
+            {
+              label: "Nhóm kinh doanh",
+              value: 4,
+            },
+            {
+              label: "Nhóm nghệ thuật",
+              value: 4,
+            },
+            {
+              label: "Nhóm luật pháp",
+              value: 5,
+            },
+            {
+              label: "Nhóm dịch vụ",
+              value: 6,
+            },
+            {
+              label: "Nhóm khoa học kỹ thuật",
+              value: 5,
+            },
+            { label: "Nhóm y tế", value: 5 },
+          ]}
+          type={"tho"}
+        />
       </div>
     </div>
   );

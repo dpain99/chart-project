@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .App-logo {
@@ -32,7 +34,22 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.canvas-container {
+  width: 700px;
+  /* Đặt kích thước muốn hiển thị trên trang web */
+  height: 700px;
+}
+
+canvas {
+  width: 100%;
+  /* Kích thước 100% để nói rằng nó sẽ lấy hết kích thước được xác định từ .canvas-container */
+  height: 100%;
+  display: block;
+  /* Đảm bảo canvas hiển thị đúng trong phạm vi của cha nó */
 }
