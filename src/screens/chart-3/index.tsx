@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./style.css";
+import { type } from "@testing-library/user-event/dist/type";
+
 interface RadarChartProps {
   data: { label: string; value: number }[];
   type: "kim" | "moc" | "thuy" | "hoa" | "tho";
 }
-
-const RadarChart: React.FC<RadarChartProps> = ({ data, type }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const RadarChart = ({ data, type }: RadarChartProps) => {
+  const convertData = (data: number) => {
+    return data + 20;
+  };
 
   const convertColorLabel = (type: string) => {
     if (type === "kim") {
@@ -44,153 +47,111 @@ const RadarChart: React.FC<RadarChartProps> = ({ data, type }) => {
     } else return "black";
   };
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const cx = 250;
+  const cy = 250;
+  const hexagonCount = 6;
+  const sides = 8;
+  const maxRadius = 150;
+  const lineWidths = [0.2, 0.4, 0.6, 0.8, 1, 1.2];
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const hexagonElements = Array.from({ length: hexagonCount }).map(
+    (_, index) => {
+      const radius = (maxRadius / hexagonCount) * (index + 1);
 
-    const padding = 40;
-    const scaleFactor = 2;
+      const hexagonPoints = Array.from({ length: sides }).map((_, i) => {
+        const angle = (i * (360 / sides) * Math.PI) / 180;
+        const x = cx + radius * Math.cos(angle);
+        const y = cy + radius * Math.sin(angle);
+        return { x, y };
+      });
 
-    const canvasWidth = 300 * scaleFactor;
-    const canvasHeight = 300 * scaleFactor;
+      const lineWidth = lineWidths[index];
 
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-
-    ctx.scale(scaleFactor, scaleFactor);
-
-    const width = canvas.width / 2 - 4.5 * padding;
-    const height = canvas.height / 2;
-
-    const centerX = width / 2 + 2.2 * padding;
-    const centerY = height / 2;
-
-    const numRings = 6;
-    const numEdges = 8;
-
-    const borderWidths = [0.2, 0.4, 0.6, 0.8, 1, 1.2];
-
-    ctx.fillStyle = "transparent";
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-    const outerRingIndex = numRings - 1;
-    const outerRingRadius = (outerRingIndex + 1) * (width / (2 * numRings));
-    const labelOffset = 10;
-
-    ctx.beginPath();
-    ctx.fillStyle = convertColorLabel(type);
-    ctx.font = `bold 8px Epilogue`;
-    ctx.textAlign = "center";
-
-    for (let i = 0; i < numEdges; i++) {
-      const angle = (2 * Math.PI * i) / numEdges;
-      const x = centerX + outerRingRadius * Math.cos(angle);
-      const y = centerY + outerRingRadius * Math.sin(angle);
-
-      if (i === 2) {
-        ctx.fillText(data[i].label, x, y + 1.5 * labelOffset);
-      } else if (i === 6) {
-        ctx.fillText(data[i].label, x, y - labelOffset);
-      } else if (i === 1) {
-        ctx.fillText(
-          data[i].label,
-          x + 3.5 * labelOffset,
-          y + 1.5 * labelOffset
-        );
-      } else if (i === 3) {
-        ctx.fillText(
-          data[i].label,
-          x - 3.5 * labelOffset,
-          y + 1.5 * labelOffset
-        );
-      } else if (i === 4) {
-        ctx.fillText(data[i].label, x - 4 * labelOffset, y + labelOffset / 3);
-      } else if (i === 5) {
-        ctx.fillText(data[i].label, x - 4 * labelOffset, y);
-      } else if (i === 7) {
-        ctx.fillText(data[i].label, x + 3.5 * labelOffset, y);
-      } else if (i === 0) {
-        ctx.fillText(data[i].label, x + 4.9 * labelOffset, y + labelOffset / 3);
-      } else {
-        ctx.fillText(data[i].label, x, y);
-      }
+      return (
+        <g key={index}>
+          <polygon
+            points={hexagonPoints
+              .map((point) => `${point.x},${point.y}`)
+              .join(" ")}
+            fill="none"
+            stroke={convertColorLabel(type)}
+            strokeWidth={lineWidth}
+          />
+          {index === hexagonCount - 1 &&
+            hexagonPoints.map((point, i) => (
+              <text
+                key={i}
+                x={point.x}
+                y={point.y}
+                textAnchor="middle"
+                alignmentBaseline="middle"
+                fontSize="13"
+                fill={convertColorLabel(type)}
+                fontFamily="Epilogue"
+                fontWeight={"600"}
+              >
+                {data[i].label}
+              </text>
+            ))}
+        </g>
+      );
     }
+  );
 
-    for (let i = 0; i < numRings; i++) {
-      const radius = (i + 1) * (width / (2 * numRings));
-      const borderWidth = borderWidths[i];
+  const dataPoints = data.map(({ value }, i) => {
+    const angle = (i * (360 / sides) * Math.PI) / 180;
+    const normalizedValue = (convertData(value) / 120) * maxRadius;
+    const x = cx + normalizedValue * Math.cos(angle);
+    const y = cy + normalizedValue * Math.sin(angle);
+    return { x, y };
+  });
 
-      ctx.beginPath();
+  const dataElements = dataPoints.map((point, i) => (
+    <circle
+      key={i}
+      cx={point.x}
+      cy={point.y}
+      r="7"
+      fill="white"
+      stroke="black"
+      strokeWidth="2"
+      filter="url(#drop-shadow)"
+    />
+  ));
 
-      for (let j = 0; j < numEdges; j++) {
-        const angle = (2 * Math.PI * j) / numEdges;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-
-        if (j === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-
-      ctx.closePath();
-      ctx.lineWidth = borderWidth;
-      ctx.strokeStyle = convertColorLabel(type);
-      ctx.stroke();
-    }
-
-    ctx.beginPath();
-    for (let i = 0; i < numEdges; i++) {
-      const angle = (2 * Math.PI * i) / numEdges;
-      const value = data[i % data.length];
-      const radius = (value.value / 6) * (width / 2);
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-
-      if (i === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
-      }
-    }
-    ctx.closePath();
-    ctx.strokeStyle = convertStrokeColor(type);
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = convertStrokeColor(type);
-    for (let i = 0; i < numEdges; i++) {
-      const angle = (2 * Math.PI * i) / numEdges;
-      const value = data[i % data.length];
-      const radius = (value.value / 6) * (width / 2);
-
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-
-      const pointRadius = 3;
-      ctx.beginPath();
-      ctx.arc(x, y, pointRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = "white";
-      ctx.fill();
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = convertStrokeColor(type);
-    }
-  }, [data]);
+  const connectingLines = (
+    <g>
+      {dataPoints.map((point, i) => (
+        <line
+          key={i}
+          x1={point.x}
+          y1={point.y}
+          x2={dataPoints[(i + 1) % dataPoints.length].x}
+          y2={dataPoints[(i + 1) % dataPoints.length].y}
+          stroke={convertStrokeColor(type)}
+          strokeWidth="3"
+        />
+      ))}
+    </g>
+  );
 
   return (
-    <div className={`radar-container ${type}`}>
-      <canvas ref={canvasRef} />
-    </div>
+    <svg width="500" height="500" className={`svg-chart-container ${type}`}>
+      <defs>
+        <filter id="drop-shadow" height="130%">
+          <feDropShadow
+            dx="0"
+            dy="0"
+            stdDeviation="3"
+            floodColor="#000000"
+            floodOpacity="0.5"
+          />
+        </filter>
+      </defs>
+      {hexagonElements}
+      {connectingLines}
+      {dataElements}
+    </svg>
   );
 };
 

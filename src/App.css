@@ -1,3 +1,5 @@
+@import "~apexcharts/dist/apexcharts.css";
+
 .App {
   text-align: center;
   display: flex;

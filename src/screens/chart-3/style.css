@@ -1,34 +1,23 @@
-.radar-container {
-    background-color: #FFF8E7;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.radar-container.kim {
+.svg-chart-container {
     background-color: #FFF8E7;
 }
 
-.radar-container.moc {
+.svg-chart-container.kim {
+    background-color: #FFF8E7;
+}
+
+.svg-chart-container.moc {
     background-color: #F7FBFF;
 }
 
-.radar-container.thuy {
+.svg-chart-container.thuy {
     background-color: #F7FBFF;
 }
 
-.radar-container.hoa {
+.svg-chart-container.hoa {
     background-color: #FFF3F7;
 }
 
-.radar-container.tho {
+.svg-chart-container.tho {
     background-color: #FFF8E7;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
 }
