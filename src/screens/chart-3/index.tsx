@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
-import { type } from "@testing-library/user-event/dist/type";
 
 interface RadarChartProps {
   data: { label: string; value: number }[];
   type: "kim" | "moc" | "thuy" | "hoa" | "tho";
+  size?: number;
 }
-const RadarChart = ({ data, type }: RadarChartProps) => {
+const RadarChart = ({ data, type, size }: RadarChartProps) => {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [cx, setCx] = useState<number>(0);
+  const [cy, setCy] = useState<number>(0);
+
   const convertData = (data: number) => {
     return data + 20;
   };
@@ -47,11 +51,23 @@ const RadarChart = ({ data, type }: RadarChartProps) => {
     } else return "black";
   };
 
-  const cx = 250;
-  const cy = 250;
+  useEffect(() => {
+    const svgElement = svgRef.current;
+
+    if (svgElement) {
+      const { width, height } = svgElement.getBoundingClientRect();
+      const newCx = width / 2;
+      const newCy = height / 2;
+
+      setCx(newCx);
+      setCy(newCy);
+    }
+  }, [data, type]);
+
   const hexagonCount = 6;
   const sides = 8;
-  const maxRadius = 150;
+
+  const maxRadius = (cx / 5) * 2;
   const lineWidths = [0.2, 0.4, 0.6, 0.8, 1, 1.2];
 
   const hexagonElements = Array.from({ length: hexagonCount }).map(
@@ -67,6 +83,22 @@ const RadarChart = ({ data, type }: RadarChartProps) => {
 
       const lineWidth = lineWidths[index];
 
+      const labelPoint = (x: number, y: number, i: number) => {
+        if (i === 0 || i === 1 || i === 7) {
+          const newX = x + 25;
+          return [newX, y, "start"];
+        } else if (i === 3 || i === 4 || i === 5) {
+          const newX = x - 25;
+          return [newX, y, "end"];
+        } else if (i === 2) {
+          const newY = y + 25;
+          return [x, newY, "middle"];
+        } else if (i === 6) {
+          const newY = y - 25;
+          return [x, newY, "middle"];
+        } else return [x, y, "middle"];
+      };
+
       return (
         <g key={index}>
           <polygon
@@ -77,13 +109,14 @@ const RadarChart = ({ data, type }: RadarChartProps) => {
             stroke={convertColorLabel(type)}
             strokeWidth={lineWidth}
           />
+
           {index === hexagonCount - 1 &&
             hexagonPoints.map((point, i) => (
               <text
                 key={i}
-                x={point.x}
-                y={point.y}
-                textAnchor="middle"
+                x={labelPoint(point.x, point.y, i)[0]}
+                y={labelPoint(point.x, point.y, i)[1]}
+                textAnchor={`${labelPoint(point.x, point.y, i)[2]}`}
                 alignmentBaseline="middle"
                 fontSize="13"
                 fill={convertColorLabel(type)}
@@ -113,9 +146,9 @@ const RadarChart = ({ data, type }: RadarChartProps) => {
       cy={point.y}
       r="7"
       fill="white"
-      stroke="black"
-      strokeWidth="2"
-      filter="url(#drop-shadow)"
+      stroke={convertStrokeColor(type)}
+      strokeWidth="4"
+      strokeOpacity={0.1}
     />
   ));
 
@@ -136,7 +169,12 @@ const RadarChart = ({ data, type }: RadarChartProps) => {
   );
 
   return (
-    <svg width="500" height="500" className={`svg-chart-container ${type}`}>
+    <svg
+      width={size}
+      height={size}
+      className={`svg-chart-container ${type}`}
+      ref={svgRef}
+    >
       <defs>
         <filter id="drop-shadow" height="130%">
           <feDropShadow

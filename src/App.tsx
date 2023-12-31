@@ -1,6 +1,6 @@
 // App.tsx
 import React from "react";
-import Octagon from "./screens/chart-3";
+import RadarChart from "./screens/chart-3";
 
 const App: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const App: React.FC = () => {
         justifyContent: "center",
       }}
     >
-      <Octagon
+      <RadarChart
         data={[
           { label: "Nhóm truyền thông", value: 100 },
           { label: "Nhóm giáo dục", value: 60 },
@@ -22,6 +22,7 @@ const App: React.FC = () => {
           { label: "Nhóm y tế", value: 30 },
         ]}
         type={"thuy"}
+        size={600}
       />
       {/* <Chart3
           data={[
