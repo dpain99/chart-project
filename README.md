@@ -13,7 +13,8 @@
 | ------ | ------ | ----- |
 | title | tên của biểu đồ | string
 | type | kiểu của biểu đồ, để thay đổi màu sắc | 'kim', 'moc', 'thuy', 'hoa', 'tho' |
-| detail | định nghĩa label và giá trị đi kèm label.Tổng giá trị của 2 value trong 1 object là 100. Ví dụ : value1: 40, value2: 60 |array, phần tử là các object với các cặp {label1: string, value1: number, label2: string, value2: number}, với label1 - value1 là cọc đồ thị bên trái, label2 - value2 là cọc đồ thị bên phải |
+| detail | định nghĩa label và giá trị đi kèm label.Tổng giá trị của 2 value trong 1 object là 10. Ví dụ : value1: 3.4, value2: 6.6 |array, phần tử là các object với các cặp {label1: string, value1: number, label2: string, value2: number}, với label1 - value1 là cọc đồ thị bên trái, label2 - value2 là cọc đồ thị bên phải |
+| flex1, flex2 | độ cong biểu đồ | flex1: number, flex2: number tương ứng biểu đồ 1, 2 |
 - Ví dụ:
 ```sh
   <Chart1
@@ -21,39 +22,39 @@
           detail={[
             {
               label1: "Thực tế / Không thích mạo hiểm",
-              value1: 30,
+              value1: 3,
               label2: "Phiêu lưu / Tinh thần mạo hiểm",
-              value2: 70,
+              value2: 7,
             },
             {
               label1: "Tuân theo tự nhiên",
-              value1: 40,
+              value1: 4,
               label2: "Kế hoạch / Tự chủ",
-              value2: 60,
+              value2: 6,
             },
             {
               label1: "Hướng ngoại / Dễ gần",
-              value1: 48,
+              value1: 4.8,
               label2: "Hướng nội / Không thích chú ý",
-              value2: 52,
+              value2: 5.2,
             },
             {
               label1: "Tư duy nhóm",
-              value1: 35,
+              value1: 3.5,
               label2: "Tư duy độc lập",
-              value2: 65,
+              value2: 6.5,
             },
             {
               label1: "Dễ đồng cảm",
-              value1: 70,
+              value1: 7,
               label2: "Thích thao túng",
-              value2: 30,
+              value2: 3,
             },
             {
               label1: "Nhạy cảm / Hay suy nghĩ",
-              value1: 36,
+              value1: 3.6,
               label2: "Giỏi xử lý căng thẳng",
-              value2: 64,
+              value2: 6.4,
             },
           ]}
           type="moc"
