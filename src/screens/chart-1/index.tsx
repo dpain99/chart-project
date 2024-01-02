@@ -12,8 +12,10 @@ interface Chart1Props {
     value2: number;
   }[];
   type: "kim" | "moc" | "thuy" | "hoa" | "tho";
+  flex?: number;
+  flex2?: number;
 }
-const Chart1 = ({ title, detail, type }: Chart1Props) => {
+const Chart1 = ({ title, detail, type, flex, flex2 }: Chart1Props) => {
   const chartDetailRef = useRef<HTMLDivElement | null>(null);
   const [chartDetailWidth, setChartDetailWidth] = useState<number | undefined>(
     undefined
@@ -27,6 +29,7 @@ const Chart1 = ({ title, detail, type }: Chart1Props) => {
         width={(chartDetailWidth / 100) * value * 10}
         height={(chartDetailWidth / 100) * 2.3}
         type={type}
+        flex={flex}
       />
     );
   const renderChartDetail2 = (value: number, type: string) =>
@@ -35,6 +38,7 @@ const Chart1 = ({ title, detail, type }: Chart1Props) => {
         width={(chartDetailWidth / 100) * value * 10}
         height={(chartDetailWidth / 100) * 2.3}
         type={type}
+        flex2={flex2}
       />
     );
 

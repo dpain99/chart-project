@@ -1,4 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import thuyImg from "../../themes/image/thuy.png";
+import kimImg from "../../themes/image/kim.png";
+import mocImg from "../../themes/image/moc.png";
+import hoaImg from "../../themes/image/hoa.png";
+import thoImg from "../../themes/image/tho.png";
 import "./style.css";
 
 interface RadarChartProps {
@@ -49,6 +54,24 @@ const RadarChart = ({ data, type, size }: RadarChartProps) => {
     if (type === "tho") {
       return "#C44023";
     } else return "black";
+  };
+
+  const convertTypeToImagePoint = (type: string) => {
+    if (type === "kim") {
+      return kimImg;
+    }
+    if (type === "moc") {
+      return mocImg;
+    }
+    if (type === "thuy") {
+      return thuyImg;
+    }
+    if (type === "hoa") {
+      return hoaImg;
+    }
+    if (type === "tho") {
+      return thoImg;
+    } else return kimImg;
   };
 
   useEffect(() => {
@@ -140,15 +163,14 @@ const RadarChart = ({ data, type, size }: RadarChartProps) => {
   });
 
   const dataElements = dataPoints.map((point, i) => (
-    <circle
+    <image
       key={i}
-      cx={point.x}
-      cy={point.y}
-      r="7"
-      fill="white"
-      stroke={convertStrokeColor(type)}
-      strokeWidth="4"
-      strokeOpacity={0.1}
+      x={point.x - maxRadius / 3 / 2}
+      y={point.y - maxRadius / 3 / 2}
+      width={maxRadius / 3}
+      height={maxRadius / 3}
+      href={convertTypeToImagePoint(type)}
+      filter="url(#dropshadow)"
     />
   ));
 
@@ -175,17 +197,6 @@ const RadarChart = ({ data, type, size }: RadarChartProps) => {
       className={`svg-chart-container ${type}`}
       ref={svgRef}
     >
-      <defs>
-        <filter id="drop-shadow" height="130%">
-          <feDropShadow
-            dx="0"
-            dy="0"
-            stdDeviation="3"
-            floodColor="#000000"
-            floodOpacity="0.5"
-          />
-        </filter>
-      </defs>
       {hexagonElements}
       {connectingLines}
       {dataElements}

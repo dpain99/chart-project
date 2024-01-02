@@ -5,8 +5,9 @@ interface BamboProps {
   width: number;
   height: number;
   type: string;
+  flex?: number;
 }
-const Bambo1 = ({ width, height, type }: BamboProps) => {
+const Bambo1 = ({ width, height, type, flex }: BamboProps) => {
   const randomNumber1 = Math.floor(Math.random() * (12 - 5 + 1) + 5);
   const randomNumber2 = Math.floor(Math.random() * (12 - 5 + 1) + 5);
 
@@ -32,14 +33,19 @@ const Bambo1 = ({ width, height, type }: BamboProps) => {
             context.beginPath();
             context.moveTo(0, 0);
 
-            context.quadraticCurveTo(width / 2, randomNumber1, width, 0);
+            context.quadraticCurveTo(
+              width / 2,
+              flex !== undefined ? flex : randomNumber1,
+              width,
+              0
+            );
 
             context.lineTo(width, 0);
             context.lineTo(width - 20, height);
 
             context.quadraticCurveTo(
               width / 2,
-              height - randomNumber2,
+              height - (flex !== undefined ? flex : randomNumber2),
               0,
               height
             );
